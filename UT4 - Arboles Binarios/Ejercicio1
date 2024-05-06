@@ -1,0 +1,55 @@
+#EJERCICIO 1
+
+Desarrolla un algoritmo para, dado un árbol binario que representa expresiones aritméticas 
+(operadores, constantes y variables):
+
+• Dados valores concretos de variables, sustituirlas en el árbol
+• Evaluar la expresión representada en el árbol y emitir el resultado
+
+NOTAS: se asume que las operaciones son binarias, y son suma, resta, multiplicación y 
+división.
+
+RESPUESTA:
+                                        _
+Interface Nodo {}                        |                   
+                                         |
+Clase NumeroNodo implements Nodo         |
+COM                                      |
+    int numero                           |
+    Nodo izquierdo -> nulo               |
+    Nodo derecho -> nulo                 |
+FIN                                      | ---> Clases de nodos utilizadas en los proximos algoritmos
+                                         |
+Clase OperacionNodo implements Nodo      |
+COM                                      |
+    String operacion;                    |
+    Nodo expresionIzquierda -> nulo      |
+    Nodo expresionDerecha -> nulo        |
+FIN                                     _|
+
+
+Precondiciones: El arbol debe existir y contener una operacion aritmetica que su recorrido inOrden la exprese.
+Postcondiciones: No se realizan cambios en el arbol y se devuelve un int con el resultado de la operacion.
+
+funcion int calcularOperaciones()
+COM
+    SI (expresionIzquierda <> nulo) HACER
+        valorIzquierda += expresionIzquierda.calcularOperaciones()
+    SI (expresionDerecha <> nulo) HACER
+        valorDerecha += expresionDerecha.calcularOperaciones()
+    SI (instanceof NumeroNodo)
+        devolver dato
+    SI (instanceof OperacionNodo)
+        SI dato == "+" HACER
+            devolver valorIzquierda + valorDerecha;
+        SINO SI dato == "-" HACER
+                devolver valorIzquierda - valorDerecha;
+            SINO SI dato == "*" HACER
+                    devolver valorIzquierda * valorDerecha;
+                SINO HACER
+                    devolver valorIzquierda / valorDerecha;
+                FIN SI
+            FINSI
+        FINFI
+    FINSI
+FIN

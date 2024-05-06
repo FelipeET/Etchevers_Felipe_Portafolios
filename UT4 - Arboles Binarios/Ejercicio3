@@ -1,0 +1,9 @@
+#EJERCICIO 3
+
+1. Diseña clases Java para representar un árbol binario y el nodo correspondiente, que 
+sea útil para representar el modelo de árbol de expresión aritmética. 
+2. Desarrolla en estas clases los métodos correspondientes a los algoritmos desarrollados 
+en los ejercicios 1 y 2. 
+3. Desarrolla un programa para probar estos métodos.
+
+RESPUESTA: En las clases y tests
