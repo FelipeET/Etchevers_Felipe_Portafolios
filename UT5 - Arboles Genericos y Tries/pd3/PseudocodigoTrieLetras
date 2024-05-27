@@ -1,0 +1,364 @@
+                ARBOL:
+
+    private TNodoTrie raiz;
+
+                NODO:
+
+    private static final int CANT_CHR_ABECEDARIO = 26;
+    private TNodoTrie[] hijos;
+    private LinkedList<String> paginas;
+    private boolean esPalabra;
+
+    public TNodoTrie() {
+        hijos = new TNodoTrie[CANT_CHR_ABECEDARIO];
+        this.esPalabra = false;
+        paginas = new LinkedList<String>();
+    }
+
+
+
+////////////////////////////INSERTAR////////////////////////////////////////////
+
+                            ARBOL:
+
+    funcion insertar(palabra):
+    COM
+        SI raiz = nulo ENTONCES
+            raiz <- nuevo NodoTrie
+        FINSI
+
+        raiz.insertar(palabra)
+    FIN
+
+                            NODO:
+
+    funcion insertar(unaPalabra):
+    COM
+        NodoTrie nodo <- this
+
+        PARA CADA caracter EN unaPalabra HACER
+
+            Entero indice <- unaPalabra.charAt(caracter) - 'a'
+
+            SI indice >= 0 Y indice < 26 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    nodo.hijos[indice] <- nuevo NodoTrie
+                FINSI
+
+                nodo <- nodo.hijos[indice]
+            FINSI
+
+        FINPARACADA
+
+        nodo.esPalabra <- verdad
+    FIN
+
+
+
+
+////////////////////////INSERTARCONINDICE///////////////////////////////////////
+
+                            ARBOL:
+
+    funcion insertarConIndice(palabra, pagina):
+    COM
+        SI raiz = nulo ENTONCES
+            raiz <- nuevo NodoTrie
+        FINSI
+
+        raiz.insertarConIndice(palabra, "" + pagina)
+    FIN
+
+                            NODO:
+
+    funcion insertarConIndice(unaPalabra, pagina):
+    COM
+        NodoTrie nodo <- this
+
+        PARACADA caracter EN unaPalabra HACER
+
+            Entero indice <- unaPalabra.charAt(caracter) - 'a'
+
+            SI indice >= 0 Y indice < 26 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    nodo.hijos[indice] <- nuevo NodoTrie
+                FINSI
+                nodo <- nodo.hijos[indice]
+            FINSI
+
+        FINPARACADA
+
+        nodo.paginas.agregar(pagina)
+    FIN
+
+
+
+    
+//////////////////////////IMPRIMIRINDICE////////////////////////////////////////
+
+                            ARBOL:
+
+    funcion imprimirIndice():
+    COM
+        SI raiz <> nulo ENTONCES
+            imprimir raiz.imprimirIndice("",raiz,"")
+        FINSI
+    FIN
+
+                            NODO:
+
+    funcion imprimirIndice(s, nodo, res): String
+    COM
+        SI nodo <> nulo ENTONCES
+
+            SI nodo.paginas <> nulo ENTONCES
+                s = s + s + " [ " + nodo.paginas.element() + " ] -";
+            FINSI
+
+            PARACADA indice c en el arreglo HACER
+                SI nodo.hijos[c] <> nulo ENTONCES
+                    imprimir(s+(char)(c + 'a'), nodo.hijos[c])
+                FINSI
+            FINPARACADA
+        
+        FINSI
+
+        devolver res
+    FIN
+
+    funcion imprimir(s, nodo):
+    COM
+        SI nodo <> nulo:
+            SI nodo.esPalabra:
+                imprimir s
+            FINSI
+
+            PARACADA indice c en el arreglo HACER
+                SI nodo.hijos[c] <> nulo ENTONCES
+                    imprimir(s + (char) (c + 'a'), nodo.hijos[c])
+                FINSI
+            FINPARACADA
+        FIN
+    FIN
+
+
+
+    
+//////////////////////////INDIZARLIBRO//////////////////////////////////////////
+
+                            ARBOL:
+
+    funcion indizarLibro(rutaArchivo):
+    COM
+        libro <- leerArchivo(rutaArchivo)
+        i <- 1
+        pagina <- 1
+
+        PARACADA linea EN libro HACER
+
+            PARACADA letra j EN linea HACER
+
+                palabra <- ""
+
+                SI j es una letra ENTONCES
+                    palabra <- j
+                FINSI
+
+                SI i = 50 ENTONCES
+                    pagina = pagina + 1
+                    i <- 1
+                SINO
+                    i <- i+1
+                FIN
+
+                SI j es un espacio ENTONCES
+                    aIndentar <- raiz.buscarNodoTrie(palabra)
+                    aIndentar <- pagina + ""
+                    palabra <- ""
+                FINSI
+
+            FINPARACADA
+        
+        FINPARACADA
+    FIN
+
+                            NODO:
+
+    funcion buscarNodoTrie(s): NodoTrie
+    COM
+        NodoTrie nodo <- this
+
+        PARACADA caracter c en s HACER
+            indice <- s - 'a'
+
+            SI indice >= 0 Y indice < 26 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    devolver nulo
+                FINSI
+
+                nodo <- nodo.hijos[indice]
+            FINSI
+        FINPARACADA
+
+        devolver nodo
+    FIN
+
+
+
+
+//////////////////////////IMPRIMIR//////////////////////////////////////////////
+
+                            ARBOL:
+
+    funcion imprimir():
+    COM
+        SI raiz <> nulo ENTONCES
+            raiz.imprimir()
+        FINSI
+    FIN
+
+                            NODO:
+
+    funcion imprimir():
+    COM
+        imprimir("", this)
+    FIN
+
+    funcion imprimir(s, nodo):
+    COM
+        SI nodo <> nulo ENTONCES
+            SI nodo.esPalabra ENTONCES
+                imprimir s
+            FINSI
+
+            PARACADA indice c en el arreglo HACER
+                SI nodo.hijos[c] <> nulo ENTONCES
+                    imprimir(s + (char) (c + 'a'), nodo.hijos[c])
+                FINSI
+            FINPARACADA
+        FINSI
+    FIN
+
+
+
+
+////////////////////////////BUSCAR//////////////////////////////////////////////
+
+                            ARBOL:
+
+    funcion buscar(palabra): Entero
+    COM
+        SI raiz <> nulo
+            devolver raiz.buscar(palabra)
+        FIN
+
+        devolver 0
+    FIN
+
+                            NODO:
+
+    funcion buscar(s): Entero
+    COM
+        comparaciones <- 0
+        NodoTrie nodo <- this
+
+        PARACADA caracter c en s HACER
+            Entero indice <- s - 'a'
+
+            SI indice >= 0 Y indice < 26 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    devolver 0
+                FINSI
+                nodo <- nodo.hijos[indice
+                comparaciones = comparaciones + 1
+            FINSI
+        FINPARACADA
+
+        devolver comparaciones
+    FIN
+
+
+
+////////////////////////BUSCARNODOTRIE//////////////////////////////////////////
+
+                            NODO:
+
+    funcion buscarNodoTrie(s): NodoTrie
+    COM
+        NodoTrie nodo <- this
+
+        PARACADA caracter c en s HACER
+            ENTERO indice <- s - 'a'
+
+            SI indice >= 0 Y indice < 26 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    devolver nulo
+                FINSI
+
+                nodo <- nodo.hijos[indice]
+            FINSI
+        FINPARACADA
+
+        devolver nodo
+    FIN
+
+
+
+
+//////////////////////////PREDECIR//////////////////////////////////////////////
+
+                            ARBOL:
+    
+    funcion predecir(prefijo): Lista
+    COM
+        lista <- nueva Lista
+
+        SI raiz = nulo ENTONCES
+            devolver lista
+        SINO
+            raiz.predecir(prefijo, lista)
+        FINSI
+
+        devolver lista
+    FIN
+
+                            NODO:
+
+    funcion predecir(prefijo, Lista palabras):
+    COM
+        NodoTrie nodoActual <- this.buscarNodoTrie(prefijo)
+        predecir(prefijo, palabras, nodoActual)
+    FIN
+
+    funcion buscarNodoTrie(s): NodoTrie
+    COM
+        NodoTrie nodo <- this
+
+        PARACADA caracter c en s HACER
+            Entero indice <- s - 'a'
+
+            SI indice >= 0 Y indice < 26 ENTONCES
+                SI nodo.hijos[indice] = nulo ENTONCES
+                    devolver nulo
+                FINSI
+                nodo <- nodo.hijos[indice]
+            FINSI
+        FINPARACADA
+
+        devolver nodo
+    FIN
+
+    funcion predecir(cadena, Lista palabras, nodo):
+    COM
+        SI nodo <> nulo ENTONCES
+            SI nodo.esPalabra ENTONCES
+                palabras.agregar(cadena)
+            FINSI
+
+            PARACADA indice c en el arreglo hijos HACER
+                SI nodo.hijos[c-'a'] <> nulo ENTONCES
+                    predecir(cadena + (char) (c + 'a'), palabras, nodo.hijos[c])
+                FINSI
+            FINPARACADA
+        FINSI
+    FIN

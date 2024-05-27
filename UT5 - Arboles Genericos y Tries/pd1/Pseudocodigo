@@ -1,0 +1,129 @@
+///////////////////////////////INSERTAR/////////////////////////////////////////
+
+                                ARBOL:
+
+    funcion insertar(unaEtiqueta, etiquetaPadre): valor de verdad
+    COM
+        SI raiz <> nulo ENTONCES
+            devolver raiz.insertar(unaEtiqueta, etiquetaPadre)
+        SINO
+            SI etiquetaPadre = "" ENTONCES
+                Nodo nuevo = nuevo Nodo(unaEtiqueta)
+                raiz <- nuevo
+                devolver verdad
+            FINSI
+        FINSI
+        devolver falso
+    FIN
+
+                                NODO:
+
+    funcion insertar(unaEtiqueta, etiquetaPadre): valor de verdad
+    COM
+        SI unaEtiqueta <> etiqueta ENTONCES
+
+            SI etiquetaPadre = etiqueta ENTONCES
+
+                Nodo nodo <- nuevo Nodo(unaEtiqueta)
+                SI this.primerHijo = nulo ENTONCES
+                    this.primerHijo <- nodo
+                    devolver verdad
+                SINO
+                    Nodo nodoAuxiliar <- this.primerHijo
+
+                    MIENTRAS nodoAuxiliar.hermano <> nulo HACER
+                        SI nodoAuxiliar.etiqueta = unaEtiqueta ENTONCES
+                            devolver falso
+                        SINO
+                            nodoAuxiliar <- nodoAuxiliar.hermano
+                        FINSI
+                    FINMIENTRAS
+
+                    SI nodoAuxiliar.etiqueta <> unaEtiqueta ENTONCES
+                        nodoAuxiliar.hermano <- nodo
+                        devolver verdad
+                    FINSI
+                FINSI
+
+            SINO
+
+                insertado <- falso
+                SI this.hermano <> nulo ENTONCES
+                    insertado <- this.hermano.insertar(unaEtiqueta, etiquetaPadre)
+                FINSI
+
+                SI insertado = falso Y this.primerHijo <> nulo ENTONCES
+                    insertado <- this.primerHijo.insertar(unaEtiqueta, etiquetaPadre)
+                FINSI
+
+                devolver insertado
+            
+            FINSI
+
+        FINSI
+
+        devolver falso
+
+    FIN
+
+////////////////////////////////////BUSCAR//////////////////////////////////////
+
+                                    ARBOL:
+
+    funcion buscar(unaEtiqueta): Nodo
+    COM
+        SI raiz <> nulo ENTONCES
+            devolver raiz.buscar(unaEtiqueta)
+        FINSI
+        devolver nulo
+    FIN
+
+                                    NODO:
+
+    funcion buscar(unaEtiqueta): Nodo
+    COM
+        SI etiqueta = unaEtiqueta ENTONCES
+            devolver this
+        SINO
+            Nodo hijo <- this.primerHijo
+
+            MIENTRAS hijo <> nulo ENTONCES
+                Nodo x <- hijo.buscar(unaEtiqueta)
+                SI x <> nulo ENTONCES
+                    devolver x
+                FINSI
+                hijo <- hijo.hermano
+            FINMIENTRAS
+        FINSI
+        devolver nulo
+    FIN
+
+//////////////////////////LISTARINDENTADO///////////////////////////////////////
+
+                            ARBOL:
+
+    funcion listarIndentado(): String
+    COM
+        SI raiz <> nulo ENTONCES
+            devolver raiz.listarIndentado("")
+        FINSI
+
+        devolver ""
+    FIN
+
+                            NODO:
+
+    funcion listarIndentado(String listado): String
+    COM
+        listado <- listado + this.etiqueta + " - "
+
+        SI this.primerHijo <> nulo ENTONCES
+            listado <- this.pimerHijo.listarIndentado(listado)
+        FINSI
+
+        SI this.hermano <> nulo ENTONCES
+            listado <- this.hermano.listarIndentado(listado)
+        FINSI
+
+        devolver listado
+    FIN

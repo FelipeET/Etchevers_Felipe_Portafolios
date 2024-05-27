@@ -1,0 +1,117 @@
+#EJERCICIO 1
+
+Se desea construir un índice de palabras de un libro. Para ello, recorriendo el texto del mismo se han de insertar las 
+palabras en una estructura de trie, indicando, para cada palabra, la(s) páginas del libro en que se encuentra la 
+misma. 
+
+1. Describe las estructuras de datos para construir un trie para el alfabeto compuesto por las letras a..z. Dibuja 
+la estructura en papel grande para explicar a tus compañeros y tráela la próxima clase.
+
+RESPUESTA:
+
+NodoTrie:
+    Letra: char
+    Lista<int>      -> Si la lista esta vacia no es 3fin de palabra
+    Arr[32]<NodoTrie>
+
+ArbolTrie:
+    Raiz: NodoTrie
+
+2. Desarrolla un algoritmo para, a partir de un texto, construir el índice del mismo en el trie, indicando las 
+páginas en que aparecen las palabras. De acuerdo a los lineamientos para desarrollo de algoritmos en 
+seudocódigo presentados en clase, deberás desarrollar:
+a) Descripción en lenguaje natural del algoritmo solicitado
+b) Identificación de precondiciones y postcondiciones correspondientes
+c) Escritura del algoritmo en seudocódigo formal
+d) Análisis detallado del orden del tiempo de ejecución del algoritmo
+
+RESPUESTA:
+
+a) LN: Se reciben una palabra y una pagina por parametro, por cada letra de la palabra si aun no se ha agregado,
+se agrega como hijo de la anterio, hasta completar por cada letra un nodo, y la siguiente letra como primerHijo
+de la letra anterior.
+
+b) Pecondiciones: Debe existir el arbol 
+   Postcondiciones: Si la palabra aun no ha sido agregada se agregan los nodos necesarios, tanto si la palabra ya se 
+                    encontraba en el arbol como si no se agrega la pagina a la lista de paginas.
+
+c) y d)
+
+funcion insertar(palabra, pagina)
+COM                                                                      _
+    nodoActual <- this                                  ---> O(1)         |
+    PARA CADA caracter de palabra HACER                 ---> O(n)         |
+        unHijo <- nodoActual.obtenerHijo(caracter)         ---> O(1)      |
+        SI unHijo = nulo ENTONCES                          ---> O(1)      |
+            unHijo <- crearNuevoNodoTrie                      ---> O(1)   |
+            nodoActual.agregar(unHijo, caracter)              ---> O(1)   |   ---> O(n)
+        FINSI                                                             |
+        nodoActual <- unHijo                                  ---> O(1)   |
+    FINPARACADA                                                           |
+    nodoActual.lista.insertar(pagina)                   ---> O(1)        _|
+FIN
+
+Usa como datos de prueba los siguientes y construye el trie correspondiente
+Ala, 1, 3, 88
+Alimaña, 11, 22
+Alabastro, 4
+Perro, 5, 8
+Pera, 7,12
+Alimento, 9
+Casa, 11,13
+Casada, 1
+Cazar, 33
+Programa, 22, 67
+Programación, 15
+Programar 15,16
+
+RESPUESTA:
+
+                                                    (RAIZ)
+                                                       |
+                       ________________________________|___________________________
+                      |                                |                           |
+                     (A)                              (C)                         (P)
+                      |                                |                     ______|_________
+                      |                                |                    |                |
+                     (L)                              (A)                  (E)              (R)
+              ________|_________              _________|_________           |                |
+             |                  |            |                   |         (R)              (O)
+            [A]                (I)          (S)                 (Z)     ____|______          |
+          [1,3,88]              |            |                   |     |           |        (G)
+             |                 (M)          [A]                 (A)   (R)         [A]        | 
+            (B)          _______|___      [11,13]                |     |         [7,12]     (R)
+             |          |           |        |                  [R]   [O]                    |
+            (A)        (A)         (E)      (D)                 [33] [5,8]                  (A)
+             |          |           |        |                                               |
+            (S)        (Ñ)         (N)      [A]                                             (M)
+             |          |           |       [1]                                              |                                             
+            (T)        [A]         (T)                                                      [A]
+             |       [11,22]        |                                                     [22,67]
+            (R)                    [O]                                             __________|_________
+             |                     [9]                                            |                    |
+            [O]                                                                  (C)                  [R]
+            [4]                                                                   |                 [15,16]
+                                                                                 (I)
+                                                                                  |
+                                                                                 (O)
+                                                                                  |
+                                                                                 [N]
+                                                                                 [15]
+
+3. Responde las siguientes preguntas:
+
+• ¿Cuántas comparaciones realiza el algoritmo de búsqueda si el argumento es “Programa”?
+    ---> 11 comparaciones.
+
+• ¿Cuántas comparaciones realiza el algoritmo de búsqueda si el argumento es “Proselitismo?
+    ---> 7 comparaciones.
+
+• ¿Cuántas comparaciones se realizan para insertar la palabra “cazadores”?
+    ---> 7 comparaciones.
+
+• ¿cuál es la altura del árbol trie resultante?
+    ---> Tiene altura 12.
+
+• ¿cuál es su tamaño?
+    ---> Tiene tamaño 45.

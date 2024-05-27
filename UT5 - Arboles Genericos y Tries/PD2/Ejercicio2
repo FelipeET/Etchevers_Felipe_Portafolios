@@ -1,0 +1,30 @@
+#EJERCICIO 2
+
+Desarrolla un algoritmo que, dada una cierta palabra, retorne las páginas en que se encuentra, o indique que no está 
+en el libro si es el caso
+
+RESPUESTA:
+
+                ARBOL:
+
+funcion lista<int> buscar(palabra)
+COM
+    nodo <- Raiz
+    PARA CADA caracter c de palabra HACER
+        hijo <- nodo.obtenerHijo(c)
+        SI hijo <> nulo ENTONCES
+            nodo <- hijo
+        SINO
+            devolver nulo
+        FINSI
+    FINPARA
+    devolver nodo.lista
+FIN
+
+
+                NODO:
+
+funcion NodoTrie obtenerHijo(letra)
+COM
+    devolver hijos[letra-'a']
+FIN
