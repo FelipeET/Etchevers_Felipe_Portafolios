@@ -1,0 +1,203 @@
+ARBOL:
+
+    private INodoTrie raiz;
+    
+    public TArbolTrie(){
+        raiz = null;
+    }
+
+NODO:
+
+    private final Map<Character, TNodoTrie> hijos;
+    private boolean esPalabra;
+
+    public TNodoTrie() {
+        this.hijos = new HashMap<>();
+        this.esPalabra = false;
+    }
+
+///////////////////////////////INSERTAR/////////////////////////////////////////
+
+                                ARBOL:
+
+    funcion insertar(String palabra):
+    COM
+        SI raiz = null ENTONCES
+            raiz <- nuevo NodoTrie
+        FINSI
+
+        raiz.insertar(palabra)
+    FIN
+
+                                NODO:
+
+    funcion insertar(String unaPalabra):
+    COM
+        NodoTrie nodo <- this
+
+        PARACADA caracter c en unaPalabra HACER
+            c1 <- unaPalabra.charAt(c)
+
+            SI NO nodo.hijos contiene key(c1) ENTONCES
+                nodo.hijos.put(c1, nuevo NodoTrie)
+            FINSI
+
+            nodo <- nodo.hijos.get(c1)
+        FINPARACADA
+
+        nodo.esPalabra <- verdad
+    FIN
+
+
+
+
+//////////////////////////////IMPRIMIR()////////////////////////////////////////
+
+                                ARBOL:
+
+    funcion imprimir():
+    COM
+        SI raiz <> nulo ENTONCES
+            raiz.imprimir()
+        FINSI
+    FIN
+
+                                NODO:
+
+    funcion imprimir():
+    COM
+        imprimir("", this)
+    FIN
+
+    funcion imprimir(String s, NodoTrie nodo):
+    COM
+        SI nodo <> nulo ENTONCES
+            SI nodo.esPalabra ENTONCES
+                imprimir s
+            FINSI
+
+            PARACADA caracter c en nodo.hijos HACER
+                imprimir(s+c, nodo.hijos.get(c))
+            FINPARACADA
+        FINSI
+    FIN
+
+
+
+
+///////////////////////////////BUSCAR///////////////////////////////////////////
+
+                                ARBOL:
+
+    funcion buscar(palabra): entero
+    COM
+        devolver this.raiz.buscar(palabra)
+    FIN
+
+                                NODO:
+
+    funcion buscar(s): Entero
+    COM
+        NodoTrie nodoActual <- this
+        count <- 0
+
+        PARACADA caracter s en s HACER
+            NodoTrie unHijo <- nodoActual.obtenerHijo(c)
+
+            SI unHijo = nulo ENTONCES
+                devolver 0
+            SINO
+                count <- count + 1
+                nodoActual <- unHijo
+            FINSI
+        FINPARACADA
+
+        devolver count
+    FIN
+
+    funcion obtenerHijo(caracter c): NodoTrie
+    COM
+        devolver this.hijos.get(c)
+    FIN
+
+
+
+
+////////////////////////////////PREDECIR////////////////////////////////////////
+
+                                ARBOL:
+
+    funcion predecir(prefijo): Lista de String
+    COM
+        Lista palabras <- nueva lista
+        this.raiz.predecir(prefijo, palabras)
+        devolver palabras
+    FIN
+
+                                NODO:
+
+    funcion predecir(prefijo, ListaDeString palabras):
+    COM
+        NodoTrie aux <- this.buscarNodoTrie(prefijo)
+        SI aux <> nulo ENTONCES
+            aux.predecir(prefijo, palabras, aux)
+        FINSI
+    FIN
+
+    funcion buscarNodoTrie(s): NodoTrie
+    COM
+        NodoTrie nodo <- this
+        index <- 0
+
+        MIENTRAS nodo <> nulo Y index < s.largo HACER
+            nodo <- nodo.hijos.get(s.charAt(index))
+            index <- index + 1
+        FINMIENTRAS
+
+        devolver nodo
+    FIN
+
+    funcion predecir(s, ListaDeString palabras, nodo):
+    COM
+        SI nodo <> nulo ENTONCES
+            SI nodo.esPalabra ENTONCES
+                palabras.agregar(s)
+            FINSI
+
+            PARACADA caracter c en nodo.hijos HACER
+                predecir(s+c, palabras, nodo.hijos.get(c))
+            FINPARACADA
+        FINSI
+    FIN
+
+
+
+
+///////////////////////////////BUSCARNODOTRIE///////////////////////////////////
+
+                                    NODO:
+
+    funcion buscarNodoTrie(s): NodoTrie
+    COM
+        NodoTrie nodo <- this
+        index <- 0
+
+        MIENTRAS nodo <> nulo Y index < s.largo HACER
+            nodo <- nodo.hijos.get(s.charAt(index))
+            index <- index + 1
+        FINMIENTRAS
+
+        devolver nodo
+    FIN
+
+
+
+
+////////////////////////////////OBTENERHIJO/////////////////////////////////////
+
+                                    NODO:
+
+    funcion obtenerHijo(caracter c): NodoTrie
+    COM
+        devolver this.hijos.get(c)
+    FIN

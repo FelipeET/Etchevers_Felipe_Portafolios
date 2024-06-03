@@ -1,0 +1,71 @@
+    private final int[] table;
+
+    public HashNumeros(int size) {
+        this.table = new int[size];
+        Arrays.fill(this.table, -1);
+    }
+
+
+
+//////////////////////////////////BUSCAR////////////////////////////////////////
+
+
+    funcion buscar(unaClave): Entero
+    COM
+        Entero i <- funcionHashing(unaClave)
+        j <- i
+        comparaciones_busqueda = 0
+
+        MIENTRAS this.table[j] <> -1 HACER
+            comparaciones_busqueda <- comparaciones_busqueda + 1
+
+            SI this.table[j] = unaClave ENTONCES
+                comparaciones_busqueda_exitosa <- comparaciones_busqueda_exitosa + comparaciones_busqueda
+                devolver this.table[j]
+            FINSI
+
+            j <- (j+1) MODULO this.table.largo
+
+            SI j=i ENTONCES
+                break
+            FINSI
+        FINMIENTRAS
+
+        comparaciones_busqueda_fallida <- comparaciones_busqueda_fallida + comparaciones_busqueda
+        devolver -1
+    FIN
+
+
+
+
+///////////////////////////////////INSERTAR/////////////////////////////////////
+
+
+    funcion insertar(unaClave): Entero
+    COM
+        Entero i <- funcionHashing(unaClave)
+        j <- i
+
+        MIENTRAS this.table[j] <> -1 HACER
+            comparaciones_insercion <- comparaciones_insercion + 1
+            j <- (j+1) MODULO this.table.largo
+
+            SI j=i ENTONCES
+                excepcion HashTableOverloadException("La tabla se ha sobrecargado!")
+            FINSI
+        FINMIENTRAS
+
+        this.table[j] <- unaClave
+        devolver j
+    FIN
+
+
+
+
+///////////////////////////FUNCIONHASHING///////////////////////////////////////
+
+
+    funcion funcionHashing(unaClave): Entero
+    COM
+        devolver unaClave MODULO this.table.largo
+    FIN
