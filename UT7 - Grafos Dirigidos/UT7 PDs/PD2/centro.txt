@@ -1,0 +1,32 @@
+public Comparable obtenerExcentricidad(Comparable etiquetaVertice) {
+    Double[][] a = this.floyd();
+    int cont = 0;
+    double caminoMasLargo = 0;
+    if (vertices.containsKey(etiquetaVertice)) {
+        for (Comparable v : vertices.keySet()) {
+            if (v.equals(etiquetaVertice)) {
+                break;
+            }
+            cont++;
+        }
+        for (int i = 0; i < this.vertices.size(); i++) {
+            if (a[i][cont] > caminoMasLargo && a[i][cont]!= Double.MAX_VALUE) {
+                caminoMasLargo = a[i][cont];
+            }
+        }
+        return caminoMasLargo;
+    }
+    return -1; //NO EXISTE EL VÉRTICE
+}
+
+
+public Comparable centroDelGrafo() {
+    Comparable menorExcentricidad = null;
+    for(Comparable v: vertices.keySet()){
+        Comparable excentricidadDeV = this.obtenerExcentricidad(v);
+        if((menorExcentricidad == null || excentricidadDeV.compareTo(menorExcentricidad)< 0)&& !(excentricidadDeV.compareTo(0.0)==0)){
+            menorExcentricidad = excentricidadDeV;
+        }
+    }
+    return menorExcentricidad;
+}

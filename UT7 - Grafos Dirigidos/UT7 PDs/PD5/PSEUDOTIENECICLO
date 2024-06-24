@@ -1,0 +1,27 @@
+                Grafo dirigido:
+
+funcion tieneCiclo(): Valor de verdad
+COM
+    desvisitarVertices()
+    PARACADA vertice v en el grafo HACER
+        SI vertice.tieneCiclo() ENTONCES
+            devolver verdad
+        FINSI
+        desvisitarVertices()
+    FINPARACADA
+    devolver falso
+FIN
+
+                Vertice:
+
+funcion tieneCiclo(): Valor de verdad
+COM
+    this.visitado <- verdad
+    PARACADA verticeAdyacente v HACER
+        SI v.visitado ENTONCES
+            devolver verdad
+        FINSI
+        devolver tieneCiclo()
+    FINPARACADA
+    devolver falso
+FIN
