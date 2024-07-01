@@ -1,0 +1,58 @@
+3. RESPONDE LAS PREGUNTAS:
+
+1. Un Árbol Parcialmente Ordenado es
+    a. Un árbol binario que siempre está balanceado
+    b. Un árbol binario de búsqueda
+    c. Un árbol para el que las inserciones siempre toman entre 2^(h+1) y 2^(h+1)-1 comparaciones, siendo h la altura del árbol
+    d. Ninguna es correcta
+
+RESPUESTA: a
+
+
+2. ¿qué operaciones primitivas del TDA ARBOL BINARIO (y el correspondiente 
+Nodo) no precisaríamos para implementar las dos operaciones indicadas del 
+TDA APO?
+a. TNodoArbolBinario.hijoIzq() 
+b. TNodoArbolBinario.hijoDer ()
+c. TNodoArbolBinario.Buscar(unaClave)
+d. TNodoArbolBinario.Padre()
+
+RESPUESTA: c
+
+
+3. ¿cuál sería el orden del tiempo de ejecución de la operación 
+TNodoArbolBinario.Padre() si el árbol está representado como los árboles 
+comunes ya tratados?
+    a) O(n)
+    b) Constante
+    c) O(n2)
+    d) O(log (n))
+
+RESPUESTA: c
+
+
+4. Si el TDA Árbol Binario Parcialmente Ordenado – TDA APO – hereda del TDA 
+Arbol Binario, para insertar un nuevo elemento deberíamos:
+    a) Usar la operación heredada del TDA AB “Insertar(unNodo)” 
+    directamente
+    b) Escribir una nueva operación de inserción, en la primer posición 
+    disponible del último nivel
+    c) Escribir una nueva operación que coloque el nuevo elemento en la 
+    posición más a la izquierda del último nivel y luego haga los 
+    intercambios necesarios para que finalmente quede en el lugar que le 
+    corresponde
+    d) Usar una operación externa que luego de insertar recomponga la 
+    condición necesaria para el TDA APO
+
+RESPUESTA: c
+
+
+
+5. ¿cuál sería el orden del tiempo de ejecución de la primitiva “Insertar” del 
+TDA APO representado en la forma habitual de árboles?
+    a) O(n)
+    b) Constante
+    c) O(n2)
+    d) O(log (n))
+
+RESPUESTA: d

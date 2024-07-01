@@ -1,0 +1,29 @@
+Forma 1:
+    Tomar el primer y ultimo elemento del arreglo y hacer el promedio.
+
+    Este algoritmo tiene orden 1
+
+    funcion obtenerPivote(vector del tipo vector de Enteros)
+    COM
+        devolver ((vector[0]+vector[vector.length])/2)
+    FIN
+
+Forma 2:
+    Tomar el primer, ultimo y vector que se encuentra en el medio y hacer el promedio.
+
+    Este algoritmo tiene orden 1
+
+    funcion obtenerPivote(vector del tipo vector de Enteros)
+    COM
+        devolcer ((vector[0] + vector[vector.length/2] + vector[vector.lenght]) / 3)
+    FIN
+
+Forma 3:
+    Tomar el mayor de los dos primeros
+
+    Este algoritmo tiene orden 1
+
+    funcion obtenerPivote(vector del tipo vector de Enteros)
+    COM
+        devolver (max(vector[0],vector[1]))
+    FIN

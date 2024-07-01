@@ -1,0 +1,26 @@
+#EJERCICIO 1 
+
+A efectos del algoritmo de ordenación HEAPSORT (y otros) resulta conveniente representar un ARBOL 
+PARCIALMENTE ORDENADO mediante un vector. Como vimos anteriormente, el método de ordenación en forma 
+abstracta se reduce a 
+    • Insertar inicialmente los elementos del conjunto a ordenar en un APO (algoritmo “insertar”)
+    • Extraer de la raíz del APO cada elemento, manteniendo la característica de APO del árbol (método 
+    “suprimeMinimo”).
+
+Es apropiado entonces analizar las siguientes cuestiones:
+    1. ¿Cuáles son las operaciones básicas involucradas en estos dos algoritmos?
+
+    RESPUESTA: En el algoritmo de inserción las dos operaciones basicas involucradas son comparar e intercambiar
+               en suprimeMinimo la operación basica es comparación
+
+    2. ¿Cuál es el orden de estas operaciones cuando el árbol APO se representa en la forma estándar (árbol 
+    binario)? (analizarlo a alto nivel)
+
+    RESPUESTA: suprimeMinimo seria O(NlogN)
+               insercion O(N)
+
+    3. ¿Cuál es el orden de estas operaciones cuando el árbol APO se representa mediante un vector con 
+    posiciones de 1 a N?
+
+    RESPUESTA: Inserción O(logN)
+               sumprimeMinimo O(1)

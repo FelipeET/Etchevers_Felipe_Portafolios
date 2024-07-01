@@ -1,0 +1,4 @@
+#EJERCICIO 1
+
+En todo momento durante la ejecucion del quicksort se cumple que el izquierdo es < que el pivote y los de la derecha >=
+que el pivote

@@ -1,0 +1,38 @@
+#EJERCICIO 1
+
+Estudiar el funcionamiento de la clase “GeneradorDatosGenerico.java” y responder las siguientes preguntas:
+
+1) ¿COMO SE GENERA UN VECTOR MONOTONAMENTE ASCENDENTE?
+    
+    Se crea un vector del tamaño maximo y para cada posicion de este se le añade el valor del indice.
+
+2) ¿COMO SE GENERA UN VECTOR MONOTONAMENTE DESCENDENTE?
+    
+    Se crea un vector del tamaño maximo y para cada posicion de este se añade tamaño maximo - i como valor.
+
+3) ¿COMO SE GENERA UN VECTOR CON VALORES ALEATORIOS? ¿PUEDEN EXISTIR CLAVES REPETIDAS? ¿CUAL ES EL ORDEN DEL TIEMPO
+   DE EJECUCION DE ESTE METODO?
+    
+    Se crea un vector de enteros y un vector booleano ambos con tamaño maximo, para cada posicion del vector de enteros se 
+    genera un numero random entre 0 y el tamaño maximo, mientras esta posicion en el vector booleano se encuentra con valor
+    true, se cambia el valor de este entero por el (el numero random + 1) % TAMANIO_MAX, luego se añade este numero como 
+    valor en el vector de enteros en la posicion del indice de este entero y se coloca true en la misma posicion en el
+    vector booleano.
+
+4) ¿CUANTOS ELEMENTOS CONTIENE EL VECTOR DE DATOS GENERADO? ¿COMO SE PUEDE MODIFICAR ESTA CLASE PARA QUE LA CANTIDAD
+   DE ELEMENTOS DEL VECTOR SEA PARAMETRIZABLE?
+    
+    El vector de datos generado tiene 32000 elementos, para que sea parametrizable la cantidad de elementos de puede pedir
+    que al llamar al metodo se pase como parametro la cantidad de elementos que queremos contenga el vector y cada vez
+    que utilizamos TAMANIO_MAX en su lugar utilizamos esta variable.
+
+5) ¿COMO PODEMOS VERIFICAR QUE UN CONJUNTO ESTA ORDENADO? ¿CUAL SERIA EL ORDEN DEL TIEMPO DE EJECUCION DE UN ALGORITMO
+   QUE LO HAGA?
+
+    Si el vector es monotonamente ascendente o aleatorio mientras el dato de la posicion i sea menor que el dato de la 
+    posicion i+1 se continua recorriendo, si se encuentra con un valor que no cumpla esto se devuelve falso y todos los 
+    valores lo cumplen y se llega al final del vector se devuelve verdadero.
+    En caso de que el vector sea monotonamente descendente lo que se chequea es que el dato de la posicion i sea mayor que 
+    el dato en la posicion i+1.
+
+    El orden del algoritmo en el peor caso sería n, cuando el vector esta ordenado se recorren todas las posiciones.
